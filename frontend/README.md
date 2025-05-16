@@ -1,5 +1,3 @@
-# MedAgendaApp (Frontend)
-
 Aplicativo mobile criado com *React Native* utilizando *Expo*, focado na gestão de medicamentos.  
 Este repositório contém a *parte do cliente (frontend)* da aplicação, que *já está integrada com a API* hospedada em outro repositório.
 
