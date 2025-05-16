@@ -1,0 +1,297 @@
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  color: #fff;
+  background: linear-gradient(135deg, #5e25ed 0%, #c6d2ec 90%);
+}
+
+/* HEADER */
+header {
+  color: white;
+  padding: 2rem 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.header-logo {
+  max-width: 400px;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+.header-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+
+.header-text h1 {
+  font-size: 5.5rem;
+  margin: 0.5rem 0;
+}
+
+.header-text p {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+header img {
+  max-width: 280px;
+  margin-top: 5rem;
+  margin-bottom: 3rem;
+  animation: pulse 1.5s infinite ease-in-out;
+  transform-origin: center;
+}
+
+.purple-rainbow-text {
+  font-size: 3em;
+  font-weight: bold;
+  background: linear-gradient(
+    90deg,
+    #800080,
+    #8a2be2,
+    #9400d3,
+    #9932cc,
+    #ba55d3,
+    #da70d6,
+    #dda0dd,
+    #800080
+  );
+  background-size: 300% auto;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: purple-rainbow 4s linear infinite;
+}
+
+@keyframes purple-rainbow {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 100% center;
+  }
+}
+
+/* CONTAINER GERAL */
+section {
+  padding: 2rem 1rem;
+}
+
+/* PRODUTO */
+.product {
+  background-color: #ffffff;
+  padding: 8rem 3rem;
+  text-align: center;
+}
+
+.product-header h2,
+.product-text {
+  color: #6a1b9a;
+}
+
+.product-text {
+  font-size: 1.1rem;
+  font-weight: 200;
+  padding: 0 10rem;
+  letter-spacing: 0.5px;
+}
+
+/* MEDICINE */
+.medicine {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+
+.medicine-image img {
+  width: 700px;
+  max-width: 700px; /* ajuste esse valor conforme necessário */
+  height: auto;
+}
+
+.medicine-text .multi-colored-text {
+  background: linear-gradient(90deg, #800080, #da70d6, #8a2be2);
+  background-clip: text; 
+  color: transparent;
+  font-weight: bold;
+  font-size: 40px;  /* Definindo o tamanho da fonte */
+  margin: 0;
+}
+
+/* DESENVOLVEDORES */
+.devs {
+  text-align: center;
+}
+
+.devs-marquee {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  margin-top: 2rem;
+}
+
+.dev-cards {
+  display: flex;
+  gap: 1rem;
+  animation: marquee 15s linear infinite;
+}
+
+.dev-card {
+  background: #6a1b9a;
+  padding: 1rem 1.5rem;
+  border-radius: 30px;
+  font-weight: 300;
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(54, 43, 209, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.dev-card:hover {
+  transform: scale(1.05);
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* FUNCIONALIDADES */
+.funcs-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 1rem;
+}
+
+.funcs-title {
+  flex: 1 1 350px;
+  text-align: left;
+  max-width: 350px;
+  margin-left: 1rem;
+  margin-top: 20rem; 
+}
+
+.medicine-text .multi-colored-text,
+.funcs-title .multi-colored-text { 
+  background: linear-gradient(90deg, #da70d6, #8a2be2, #800080);
+  background-clip: text; /* Para navegadores modernos */
+  color: transparent;
+  font-weight: bold;
+  font-size: 2.5em; 
+  margin: 0;
+}
+
+.features {
+  flex: 2 1 600px;
+  display: flex;
+  justify-content: center; 
+  gap: 2rem; 
+  flex-wrap: wrap; 
+  padding: 0;
+}
+
+.feature-card {
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  width: 280px; /* Defini uma largura para os cards */
+  box-shadow: 0 4px 8px rgba(54, 43, 209, 0.1);
+  text-align: center; /* Centraliza o conteúdo dentro do card */
+  transition: transform 0.3s ease-in-out; /* Adiciona uma pequena transição ao passar o mouse */
+}
+
+.feature-card:hover {
+  transform: translateY(-5px); /* Pequeno efeito de elevação ao passar o mouse */
+}
+
+.feature-icon {
+  font-size: 3rem;
+  color: #800080;
+  margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #3e3e3e;
+  margin-bottom: 0.5rem;
+}
+
+.feature-card p {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.4;
+}
+
+/* VÍDEO */
+.video-section {
+  text-align: center;
+}
+
+.video-section iframe {
+  max-width: 100%;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* CALL TO ACTION */
+.cta {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(6px);
+  padding: 2rem;
+  text-align: center;
+  border-radius: 12px;
+  margin-top: 3rem;
+  color: #fff;
+}
+
+.cta a {
+  color: #fff;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+/* RODAPÉ */
+footer {
+  background: rgba(0, 0, 0, 0.2);
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  margin-top: 4rem;
+  font-size: 1rem;
+}
+
+/* LINKS */
+a {
+  color: #fff;
+  text-decoration: underline;
+}
