@@ -14,9 +14,6 @@ Este repositório contém a *parte do cliente (frontend)* da aplicação, que *j
 - [Expo](https://expo.dev/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [React Navigation](https://reactnavigation.org/)
-- [Axios](https://axios-http.com/)
-- [Eslint + Prettier](https://eslint.org/)
-
 
 ## ▶️ Como rodar o projeto
 
