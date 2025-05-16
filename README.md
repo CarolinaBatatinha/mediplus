@@ -78,5 +78,6 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 
 **- Banco de dados**
 > - Igor de Paula Gonçalves
+> - Carolina Moreira Batatinha de Souza
 
 <a href="#license"><img src="https://img.shields.io/github/license/sourcerer-io/hall-of-fame.svg?colorB=ff0000"></a>
