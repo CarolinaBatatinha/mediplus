@@ -28,13 +28,9 @@ Repositório dedicado ao desenvolvimento do Aplicativo Medi+, referente a segund
 > - Relatórios para Profissionais de Saúde
 > - Integração com Dispositivos de Saúde
 
-## Estrutura de Diretórios - MVC (Model-View-Controller)
-
 ## MockUp - Figma
 
 <img width="626" alt="figma" src="https://github.com/user-attachments/assets/6a523886-217f-4649-b9d3-a261b4d2b5ba" />
-
-## Landing Page
 
 ## Modelo Físico de Banco de Dados
 
