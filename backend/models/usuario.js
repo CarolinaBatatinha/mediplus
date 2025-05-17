@@ -13,7 +13,7 @@ class Usuario {
 
   static async create({ nome, email, senha_hash }) {
     const result = await pool.query(
-      'INSERT INTO usuarios (nome, email, senha_hash) VALUES ($1, $2, $3) RETURNING *',
+      'INSERT INTO usuarios (nome, email, telefone, senha_hash) VALUES ($1, $2, $3, $4) RETURNING *',
       [nome, email, senha_hash]
     );
     return result.rows[0];
@@ -21,7 +21,7 @@ class Usuario {
 
   static async update(id, { nome, email, senha_hash }) {
     const result = await pool.query(
-      'UPDATE usuarios SET nome=$1, email=$2, senha_hash=$3 WHERE id=$4 RETURNING *',
+      'UPDATE usuarios SET nome=$1, email=$2, telefone=$3, senha_hash=$4 WHERE id=$5 RETURNING *',
       [nome, email, senha_hash, id]
     );
     return result.rows[0];

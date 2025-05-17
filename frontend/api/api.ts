@@ -15,6 +15,9 @@ export async function criarUsuario(usuario: {
   nome: string;
   email: string;
   senha: string;
+  telefone?: string;
+  dataNascimento?: string;
+  
 }) {
   const res = await fetch(`${API_URL}/usuarios`, {
     method: "POST",
@@ -29,6 +32,8 @@ export async function atualizarUsuario(id: string, usuario: {
   nome?: string;
   email?: string;
   senha?: string;
+  telefone?: string;
+  dataNascimento?: string;
 }) {
   const res = await fetch(`${API_URL}/usuarios/${id}`, {
     method: "PUT",
