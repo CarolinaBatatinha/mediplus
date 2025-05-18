@@ -2,10 +2,10 @@
   "name": "mediplus-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "src/app.js",
+  "main": "backend/src/app.js",
   "scripts": {
-    "start": "node src/app.js",
-    "dev": "nodemon src/app.js"
+    "start": "node backend/src/app.js",
+    "dev": "nodemon backend/src/app.js"
   },
   "keywords": [],
   "author": "",
