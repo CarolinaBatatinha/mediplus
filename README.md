@@ -62,6 +62,17 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
     npx expo start
    ```
 
+3. Instruções de uso Firebase
+
+*Instalar firebase*
+1. npm install -g firebase-tools
+2. firebase login
+3. Acessar -> mediplus-59689
+
+*fazer deploy*
+1. firebase init
+2. firebase deploy
+
 ## Contribuições
 **- Back-End**
 > - Carolina Moreira Batatinha de Souza
