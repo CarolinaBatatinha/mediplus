@@ -5,6 +5,7 @@ exports.listarUsuarios = async (req, res) => {
     const usuarios = await Usuario.findAll();
     res.json(usuarios);
   } catch (err) {
+    console.error('>> Erro em criar/listar/etc:', err);
     res.status(500).json({ error: err.message });
   }
 };
@@ -17,6 +18,7 @@ exports.buscarUsuario = async (req, res) => {
     }
     res.json(usuario);
   } catch (err) {
+    console.error('>> Erro em criar/listar/etc:', err);
     res.status(500).json({ error: err.message });
   }
 };
@@ -26,6 +28,7 @@ exports.criarUsuario = async (req, res) => {
     const novoUsuario = await Usuario.create(req.body);
     res.status(201).json(novoUsuario);
   } catch (err) {
+    console.error('>> Erro em criar/listar/etc:', err);
     res.status(500).json({ error: err.message });
   }
 };
@@ -38,6 +41,7 @@ exports.atualizarUsuario = async (req, res) => {
     }
     res.json(usuarioAtualizado);
   } catch (err) {
+    console.error('>> Erro em criar/listar/etc:', err);
     res.status(500).json({ error: err.message });
   }
 };
@@ -47,6 +51,7 @@ exports.deletarUsuario = async (req, res) => {
     await Usuario.delete(req.params.id);
     res.status(204).send();
   } catch (err) {
+    console.error('>> Erro em criar/listar/etc:', err);
     res.status(500).json({ error: err.message });
   }
 };

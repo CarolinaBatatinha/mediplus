@@ -13,7 +13,7 @@ class Usuario {
 
   static async create({ nome, email, senha_hash }) {
     const result = await pool.query(
-      'INSERT INTO usuarios (nome, email, telefone, senha_hash) VALUES ($1, $2, $3, $4) RETURNING *',
+      'INSERT INTO usuarios (nome, email, senha_hash) VALUES ($1, $2, $3) RETURNING *',
       [nome, email, senha_hash]
     );
     return result.rows[0];

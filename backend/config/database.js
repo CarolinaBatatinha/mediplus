@@ -1,3 +1,12 @@
+const path = require('path');
+require('dotenv').config({
+  path: path.resolve(__dirname, '../.env')  // assume que .env está em backend/.env
+});
+
+console.log('>>> carregou .env de:', path.resolve(__dirname, '../.env'));
+console.log('>>> PGHOST lido:', process.env.PGHOST);
+
+
 const { Pool } = require('pg');
 require('dotenv').config();
 
