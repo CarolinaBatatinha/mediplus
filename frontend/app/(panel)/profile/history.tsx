@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Modal, FlatList } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import { medicineService, Medicamento } from '@/services/medicineService';
-import Footer from '@/components/footer';
+import { medicineService, Medicamento } from '../../../services/medicineService';
+import Footer from '../../../components/Footer';
 
 export default function History() {
      const [medicamentos, setMedicamentos] = useState<Medicamento[]>([]);

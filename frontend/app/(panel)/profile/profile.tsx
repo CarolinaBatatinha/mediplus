@@ -5,8 +5,8 @@ import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Print from 'expo-print';
 import * as Sharing from 'expo-sharing';
-import { medicineService, Medicamento } from '@/services/medicineService';
-import Footer from '@/components/footer';
+import { medicineService, Medicamento } from '../../../services/medicineService';
+import Footer from '../../../components/Footer';
 
 export default function Profile() {
      const router = useRouter();

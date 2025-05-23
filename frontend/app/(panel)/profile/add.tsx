@@ -13,7 +13,7 @@ import {
      ActivityIndicator
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { medicineService } from '@/services/medicineService';
+import { medicineService } from '../../../services/medicineService';
 
 export default function Add() {
      const router = useRouter();

@@ -2,7 +2,7 @@ import { useRouter } from 'expo-router';
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import Footer from '@/components/footer';
+import Footer from '../../../components/Footer';
 
 export default function TipsScreen() {
      const router = useRouter();
@@ -15,19 +15,19 @@ export default function TipsScreen() {
                </TouchableOpacity>
 
                <View style={styles.TipsGrid}>
-                    <ImageBackground source={require("@/assets/images/dicasecuidados.jpg")} style={styles.TipsCardImage} imageStyle={styles.TipsCardImage}>
+                    <ImageBackground source={require("../../../assets/images/dicasecuidados.jpg")} style={styles.TipsCardImage} imageStyle={styles.TipsCardImage}>
                          <View style={styles.TipsCard}>
                               <Text style={styles.TipsCardText}>Dicas e Cuidados</Text>
                          </View>
                     </ImageBackground>
 
-                    <ImageBackground source={require("@/assets/images/saude.jpg")} style={styles.TipsCardImage} imageStyle={styles.TipsCardImage}>
+                    <ImageBackground source={require("../../../assets/images/saude.jpg")} style={styles.TipsCardImage} imageStyle={styles.TipsCardImage}>
                          <View style={styles.TipsCard}>
                               <Text style={styles.TipsCardText}>Minha saúde</Text>
                          </View>
                     </ImageBackground>
 
-                    <ImageBackground source={require("@/assets/images/bulas.jpg")} style={styles.TipsCardImage} imageStyle={styles.TipsCardImage}>
+                    <ImageBackground source={require("../../../assets/images/bulas.jpg")} style={styles.TipsCardImage} imageStyle={styles.TipsCardImage}>
                          <View style={styles.TipsCard}>
                               <Text style={styles.TipsCardText}>Bulas</Text>
                          </View>
