@@ -68,16 +68,15 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
     npx expo start
    ```
 
-3. Instruções de uso Firebase
+### Instruções de uso Firebase
 
-*Instalar firebase*
-1. npm install -g firebase-tools
-2. firebase login
-3. Acessar -> mediplus-59689
+1 . Instalar firebase
+   ```bash
+    npm install -g firebase-tools
+  ```
 
-*fazer deploy*
-1. firebase init
-2. firebase deploy
+## Projeto Integrador em PDF
+[Link](https://drive.google.com/file/d/1_EGf6SEHo9mGiHCOhvUMMqtwDlHbMGpO/view?usp=drive_link)
 
 ## Contribuições
 **- Back-End**
@@ -103,4 +102,5 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 **- LandingPage**
 > - Paula Roberta Correa dos Santos Arruda
 
+##
 <a href="#license"><img src="https://img.shields.io/github/license/sourcerer-io/hall-of-fame.svg?colorB=ff0000"></a>
