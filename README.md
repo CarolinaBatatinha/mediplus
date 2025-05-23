@@ -97,7 +97,7 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 
 **- Integração**
 > - Leia Soares da Silva Mendes
-> - > - Igor de Paula Gonçalves
+> - Igor de Paula Gonçalves
 
 **- LandingPage**
 > - Paula Roberta Correa dos Santos Arruda
