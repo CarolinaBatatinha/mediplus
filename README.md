@@ -34,6 +34,7 @@ Repositório dedicado ao desenvolvimento do Aplicativo Medi+, referente a segund
 
 ## Modelo Físico de Banco de Dados
 
+<img width="626" alt="diagrama entidade-relacionamento" src="https://github.com/user-attachments/assets/fc3c131b-d87b-4a50-8ea8-23acdd55381e" />
 
 ## Linguagens, Ferramentas e Frameworks
 ![React Native](https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
