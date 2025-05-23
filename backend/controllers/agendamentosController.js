@@ -1,4 +1,4 @@
-const Agendamento = require('../models/Agendamento');
+const Agendamento = require('../../models/Agendamento');
 
 exports.listarAgendamentos = async (req, res) => {
   try {

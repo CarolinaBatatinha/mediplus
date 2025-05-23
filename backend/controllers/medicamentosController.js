@@ -1,6 +1,5 @@
-const Medicamento = require('../models/Medicamento');
+const Medicamento = require('../../models/Medicamento');
 
-// Adicione validações básicas
 const validarMedicamento = (data) => {
   if (!data.nome || !data.dosagem || !data.frequencia) {
     throw new Error('Campos obrigatórios faltando: nome, dosagem, frequencia');
@@ -9,7 +8,6 @@ const validarMedicamento = (data) => {
 
 exports.listarMedicamentos = async (req, res) => {
   try {
-    // Adicione paginação básica
     const { page = 1, limit = 10 } = req.query;
     const offset = (page - 1) * limit;
     
@@ -55,10 +53,8 @@ exports.buscarMedicamento = async (req, res) => {
 
 exports.criarMedicamento = async (req, res) => {
   try {
-    // Validação antes de criar
     validarMedicamento(req.body);
-    
-    // Adiciona o usuário autenticado (se houver)
+
     const usuarioId = req.user?.id;
     const dadosMedicamento = { ...req.body, usuario_id: usuarioId };
     
@@ -88,7 +84,6 @@ exports.criarMedicamento = async (req, res) => {
 
 exports.atualizarMedicamento = async (req, res) => {
   try {
-    // Verifica se o medicamento existe
     const medicamentoExistente = await Medicamento.findById(req.params.id);
     if (!medicamentoExistente) {
       return res.status(404).json({
@@ -97,7 +92,6 @@ exports.atualizarMedicamento = async (req, res) => {
       });
     }
 
-    // Validação antes de atualizar
     if (Object.keys(req.body).length === 0) {
       return res.status(400).json({
         success: false,
@@ -123,7 +117,6 @@ exports.atualizarMedicamento = async (req, res) => {
 
 exports.deletarMedicamento = async (req, res) => {
   try {
-    // Verifica existência antes de deletar
     const medicamentoExistente = await Medicamento.findById(req.params.id);
     if (!medicamentoExistente) {
       return res.status(404).json({

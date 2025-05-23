@@ -4,8 +4,7 @@ const usuariosRouter = express.Router();
 
 
 usuariosRouter.get('/', usuarioController.listarUsuarios);
-usuariosRouter.get('/:id', usuarioController.buscarUsuario); // busca usuário por ID
-usuariosRouter.post('/', usuarioController.criarUsuario);
+usuariosRouter.get('/:id', usuarioController.buscarUsuario);
 usuariosRouter.put('/:id', usuarioController.atualizarUsuario);
 usuariosRouter.delete('/:id', usuarioController.deletarUsuario);
 
