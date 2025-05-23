@@ -95,4 +95,11 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 > - Igor de Paula Gonçalves
 > - Carolina Moreira Batatinha de Souza
 
+**- Integração**
+> - Leia Soares da Silva Mendes
+> - > - Igor de Paula Gonçalves
+
+**- LandingPage**
+> - Paula Roberta Correa dos Santos Arruda
+
 <a href="#license"><img src="https://img.shields.io/github/license/sourcerer-io/hall-of-fame.svg?colorB=ff0000"></a>
