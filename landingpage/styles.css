@@ -396,38 +396,6 @@ header {
   min-height: 150px;
 }
 
-/* DESENVOLVEDORES */
-.devs {
-  text-align: center;
-  padding: 4rem 1rem; /* Adicionei um padding maior para melhor espaçamento */
-}
-
-.dev-cards {
-  display: flex;
-  gap: 1rem;
-  justify-content: center; /* Centraliza os cards horizontalmente */
-  flex-wrap: wrap; /* Permite que os cards quebrem para nova linha em telas pequenas */
-  max-width: 1200px; /* Limita a largura máxima */
-  margin: 0 auto; /* Centraliza o container */
-  padding: 1rem;
-}
-
-.dev-card {
-  background: #8a2be2;
-  padding: 1rem 1.5rem;
-  border-radius: 30px;
-  font-weight: 300;
-  color: #fff;
-  box-shadow: 0 2px 6px rgba(54, 43, 209, 0.1);
-  transition: transform 0.3s ease;
-  min-width: 150px; /* Define uma largura mínima para os cards */
-  text-align: center; /* Centraliza o texto dentro dos cards */
-}
-
-.dev-card:hover {
-  transform: scale(1.05);
-}
-
 /* RODAPÉ */
 footer {
   background: rgba(0, 0, 0, 0.2);
