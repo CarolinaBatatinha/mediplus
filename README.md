@@ -13,10 +13,10 @@
 Repositório dedicado ao desenvolvimento do Aplicativo Medi+, referente a segunda entrega do Projeto Integrador do Senac/SP.
 
 ### 👩‍💻👨‍💻 Desenvolvedores do Grupo 22
-> - Ana Cláudia de Souza Santos
-> - Carolina Moreira Batatinha de Souza
-> - Igor de Paula Gonçalves
-> - Leia Soares da Silva Mendes
+> - Ana Cláudia de Souza Santos 
+> - Carolina Moreira Batatinha de Souza 
+> - Igor de Paula Gonçalves 
+> - Leia Soares da Silva Mendes 
 > - Paula Roberta Correa dos Santos Arruda
 
 ## ⚙️Principais Recursos
