@@ -32,6 +32,8 @@ Repositório dedicado ao desenvolvimento do Aplicativo Medi+, referente a segund
 
 <img width="626" alt="figma" src="https://github.com/user-attachments/assets/6a523886-217f-4649-b9d3-a261b4d2b5ba" />
 
+[LinkdoFigma](https://www.figma.com/design/Bvitnl7LlqjqmnhWQa9Qse/PI---Android----Final?node-id=0-1&t=YqK3cq7xFaGVha1j-1)
+
 ## Modelo Físico de Banco de Dados
 
 <img width="626" alt="diagrama entidade-relacionamento" src="https://github.com/user-attachments/assets/fc3c131b-d87b-4a50-8ea8-23acdd55381e" />
