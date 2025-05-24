@@ -5,7 +5,6 @@ import { Ionicons } from '@expo/vector-icons';
 import { Usuario } from '../../../modelos/Usuario';
 import { usuarioService } from '../../../services/usuarioService';
 
-
 export default function Singup() {
      const router = useRouter();
      const [name, setName] = useState('');
