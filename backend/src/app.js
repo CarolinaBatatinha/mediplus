@@ -6,6 +6,11 @@ const historicoRouter = require('../routes/historico');
 const authRouter = require('../routes/auth');
 const app = express();
 
+const cors = require('cors');
+app.use(cors({
+  origin: 'http://localhost:8081'
+}));
+
 app.use(express.json());
 app.use((err, req, res, next) => {
   console.error('>> Unhandled error:', err);

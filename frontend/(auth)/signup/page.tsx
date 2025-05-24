@@ -14,28 +14,6 @@ export default function Singup() {
      const [password, setPassword] = useState('');
      const [showPassword, setShowPassword] = useState(false);
 
-     const handleCadastro = async () => {
-          if (password !== confirmPassword) {
-               Alert.alert('Erro', 'As senhas não coincidem.');
-               return;
-          }
-
-          const novoUsuario: Usuario = {
-               nome: name,
-               email,
-               telefone: phone,
-               senha_hash: password,
-          };
-
-          try {
-               await usuarioService.criar(novoUsuario);
-               Alert.alert('Sucesso', 'Usuário cadastrado com sucesso!');
-               router.push('/LoginScreen');
-          } catch (err: any) {
-               console.error(err);
-               Alert.alert('Erro', err.message || 'Erro ao cadastrar usuário');
-          }
-     };
 
      return (
           <ScrollView contentContainerStyle={styles.container}>
