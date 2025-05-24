@@ -11,10 +11,10 @@ class Medicamento {
     return result.rows[0];
   }
 
-  static async create({ usuario_id, nome, tipo_medicamento, dosagem, frequencia, data_inicial, medico_responsavel }) {
+  static async create({ usuario_id, nome, dosagem, frequencia, status, horario }) {
     const result = await pool.query(
-      'INSERT INTO medicamentos (usuario_id, nome, tipo_medicamento, dosagem, frequencia, data_inicial, medico_responsavel) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
-      [usuario_id, nome, tipo_medicamento, dosagem, frequencia, data_inicial, medico_responsavel]
+      'INSERT INTO medicamentos (usuario_id, nome, dosagem, frequencia, status, horario) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+      [usuario_id, nome, dosagem, frequencia, status, horario]
     );
     return result.rows[0];
   }
