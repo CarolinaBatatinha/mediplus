@@ -2,6 +2,8 @@ import { router, useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image, Pressable } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { Usuario } from '../../modelos/Usuario';
+import { usuarioService } from '../../services/usuarioService';
 
 
 export default function Singup() {
@@ -11,6 +13,29 @@ export default function Singup() {
      const [phone, setPhone] = useState('');
      const [password, setPassword] = useState('');
      const [showPassword, setShowPassword] = useState(false);
+
+     const handleCadastro = async () => {
+          if (password !== confirmPassword) {
+               Alert.alert('Erro', 'As senhas não coincidem.');
+               return;
+          }
+
+          const novoUsuario: Usuario = {
+               nome: name,
+               email,
+               telefone: phone,
+               senha_hash: password,
+          };
+
+          try {
+               await usuarioService.criar(novoUsuario);
+               Alert.alert('Sucesso', 'Usuário cadastrado com sucesso!');
+               router.push('/LoginScreen');
+          } catch (err: any) {
+               console.error(err);
+               Alert.alert('Erro', err.message || 'Erro ao cadastrar usuário');
+          }
+     };
 
      return (
           <ScrollView contentContainerStyle={styles.container}>
@@ -123,7 +148,7 @@ const styles = StyleSheet.create({
           color: '#fff',
           fontWeight: 'bold',
      },
-     slogan:{
+     slogan: {
           marginLeft: 5,
      },
      sloganText: {
@@ -137,7 +162,7 @@ const styles = StyleSheet.create({
      backButton: {
           backgroundColor: 'rgba(255,255,255, 0.55)',
           position: 'absolute',
-          top: 60, 
+          top: 60,
           left: 20,
           padding: 8,
           borderRadius: 30,
