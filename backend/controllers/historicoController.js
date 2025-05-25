@@ -1,4 +1,4 @@
-const Historico = require('../models/Historico');
+const Historico = require('../../models/Historico');
 
 exports.listarHistorico = async (req, res) => {
   try {
