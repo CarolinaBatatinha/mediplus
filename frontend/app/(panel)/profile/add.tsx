@@ -113,20 +113,12 @@ export default function Add() {
           setLoading(true);
 
           try {
-               await medicineService.adicionar({
-                    id: String(Date.now()),
+               await medicineService.criar({
                     nome,
-                    detalhe: `${tipo} - ${dosagem}`,
-                    tipo,
+                    tipo_medicamento: tipo,
                     dosagem,
-                    data: dataInicio!.toISOString().split('T')[0],
-                    horario: alarmeHoras[0].toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                    alarmes: alarmeHoras.map(h =>
-                         h.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-                    ),
-                    icone: '',
-                    lembrarReposicao: false,
-                    notificarContatos: false,
+                    data_inicial: dataInicio!.toISOString().split('T')[0],
+                    frequencia: `${alarmeHoras.length}x ao dia`
                });
 
                Alert.alert('Sucesso', 'Medicamento adicionado com sucesso!', [
@@ -199,7 +191,7 @@ export default function Add() {
                                         <Text
                                              style={[
                                                   styles.tipoTexto,
-                                                  tipo === item && styles.tipoTextoSelecionado,
+                                                  tipo === item && styles.tipoTextoSelecionado
                                              ]}
                                         >
                                              {item}
@@ -346,7 +338,9 @@ export default function Add() {
                     </TouchableOpacity>
                </ScrollView>
           </View>
-     );
+     )
+
+
 }
 
 const styles = StyleSheet.create({
@@ -392,7 +386,7 @@ const styles = StyleSheet.create({
           flex: 1,
           color: '#333',
           fontSize: 12,
-          paddingVertical: 0, 
+          paddingVertical: 0,
      },
      inputErro: {
           borderColor: '#e74c3c',

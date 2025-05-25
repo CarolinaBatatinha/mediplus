@@ -3,15 +3,23 @@ import { Medicamento } from "../modelos/Medicamento";
 import api from "./api";
 
 export const medicineService = {
-  async listar(): Promise<Medicamento[]> {
-    return await api.get('/medicamentos');
+  async listar(page = 1, limit = 10): Promise<Medicamento[]> {
+    const response = await api.get(`/medicamentos?page=${page}&limit=${limit}`);
+    console.log("AAAAAAAA", response.data)
+    return response.data;
   },
 
   async buscar(id: string): Promise<Medicamento> {
     return await api.get(`/medicamentos/${id}`);
   },
 
-  async criar(medicamento: Medicamento): Promise<Medicamento> {
+  async criar(medicamento: {
+    nome: string;
+    tipo_medicamento: string;
+    dosagem: string;
+    data_inicial: string;
+    frequencia: string;
+  }): Promise<any> {
     return await api.post('/medicamentos', medicamento);
   },
 

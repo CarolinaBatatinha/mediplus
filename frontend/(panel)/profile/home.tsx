@@ -3,9 +3,10 @@ import { useFocusEffect } from '@react-navigation/native';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from 'expo-router';
-import { medicineService, Medicamento } from '@/services/medicineService';
-import Footer from '@/components/footer';
 import { Ionicons } from '@expo/vector-icons';
+import { Medicamento } from '../../modelos/Medicamento';
+import { medicineService } from '../../services/medicineService';
+import Footer from '../../footer';
 
 export default function Home() {
      const router = useRouter();
@@ -52,8 +53,15 @@ export default function Home() {
      );
 
      const fetchMedicamentos = async () => {
-          const dadosMedicamentos = await medicineService.listar();
-          setMedicamentos(dadosMedicamentos);
+          try {
+               const page = 1;
+               const limit = 10;
+               const dadosMedicamentos = await medicineService.listar(page, limit);
+               console.log('Medicamentos recebidos:', dadosMedicamentos);
+               setMedicamentos(dadosMedicamentos);
+          } catch (error) {
+               console.error('Erro ao buscar medicamentos:', error);
+          }
      };
 
      const updateHeader = (date: Date) => {
@@ -76,23 +84,23 @@ export default function Home() {
           updateHeader(date);
      };
 
-     const atualizarStatusMedicamento = async (medicamento: Medicamento, status: 'tomado' | 'esquecido') => {
-          const medicamentoAtualizado = { ...medicamento, status };
+     // const atualizarStatusMedicamento = async (medicamento: Medicamento, status: 'tomado' | 'esquecido') => {
+     //      const medicamentoAtualizado = { ...medicamento, status };
 
-          try {
-               await medicineService.atualizar(medicamentoAtualizado);
-               setMedicamentos(prev => prev.map(m =>
-                    m.id === medicamento.id ? medicamentoAtualizado : m
-               ));
-          } catch (error) {
-               console.error('Erro ao atualizar status:', error);
-          }
-     };
+     //      try {
+     //           await medicineService.atualizar(medicamentoAtualizado);
+     //           setMedicamentos(prev => prev.map(m =>
+     //                m.id === medicamento.id ? medicamentoAtualizado : m
+     //           ));
+     //      } catch (error) {
+     //           console.error('Erro ao atualizar status:', error);
+     //      }
+     // };
 
-     const medicamentosDoDia = medicamentos.filter((med) => {
-          if (!med.data) return false;
+     const medicamentosDoDia = (medicamentos || []).filter((med) => {
+          if (!med.data_inicial) return false;
 
-          const medDate = new Date(med.data);
+          const medDate = new Date(med.data_inicial);
           return (
                medDate.getDate() === selectedDate.getDate() &&
                medDate.getMonth() === selectedDate.getMonth() &&
@@ -100,18 +108,20 @@ export default function Home() {
           );
      });
 
-     const medicamentosAgrupados = medicamentosDoDia.reduce((acc, med) => {
-          if (!acc[med.horario]) acc[med.horario] = [];
-          acc[med.horario].push(med);
-          return acc;
-     }, {} as Record<string, Medicamento[]>);
+     // const medicamentosAgrupados = medicamentosDoDia.reduce((acc, med) => {
+     //      if (!acc[med.horario]) acc[med.horario] = [];
+     //      acc[med.horario].push(med);
+     //      return acc;
+     // }, {} as Record<string, Medicamento[]>);
 
-     const medicamentosAgrupadosOrdenados = Object.entries(medicamentosAgrupados)
-          .sort(([horarioA], [horarioB]) => {
-               const [hA, mA] = horarioA.split(':').map(Number);
-               const [hB, mB] = horarioB.split(':').map(Number);
-               return hA - hB || mA - mB;
-          });
+     // const medicamentosAgrupadosOrdenados = Object.entries(medicamentosAgrupados)
+     //      .sort(([horarioA], [horarioB]) => {
+     //           const [hA, mA] = horarioA.split(':').map(Number);
+     //           const [hB, mB] = horarioB.split(':').map(Number);
+     //           return hA - hB || mA - mB;
+     //      });
+
+     const medicamentosAgrupadosOrdenados = [];
 
      return (
           <View style={styles.container}>
@@ -198,7 +208,7 @@ export default function Home() {
                                                                  styles.actionIcon,
                                                                  med.status === 'tomado' && styles.actionIconActive
                                                             ]}
-                                                            onPress={() => atualizarStatusMedicamento(med, 'tomado')}
+                                                       // onPress={() => atualizarStatusMedicamento(med, 'tomado')}
                                                        >
                                                             <Ionicons
                                                                  name="checkmark-outline"
@@ -212,7 +222,7 @@ export default function Home() {
                                                                  styles.actionIcon,
                                                                  med.status === 'esquecido' && styles.actionIconActive
                                                             ]}
-                                                            onPress={() => atualizarStatusMedicamento(med, 'esquecido')}
+                                                       // onPress={() => atualizarStatusMedicamento(med, 'esquecido')}
                                                        >
                                                             <Ionicons
                                                                  name="close-outline"

@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Animated, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Animated, Image, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Link, useRouter } from 'expo-router';
-import colors from '@/constants/colors';
+import { loginService } from '../services/loginService';
 
 export default function Login() {
      const [email, setEmail] = useState('');
@@ -29,6 +29,23 @@ export default function Login() {
                }),
           ]).start();
      }, []);
+
+     const handleLogin = async () => {
+          try {
+               const resposta = await loginService.login({
+                    email: email,
+                    senha_hash: password,
+               });
+
+               console.log('Usuário logado:', resposta.user);
+               router.push('/(panel)/profile/home')
+               Alert.alert('Sucesso', resposta.message);
+          } catch (error: any) {
+               console.error(error);
+               Alert.alert('Erro no login', error.message || 'Erro desconhecido');
+          }
+     };
+
 
      return (
           <View style={styles.container}>
@@ -70,13 +87,7 @@ export default function Login() {
 
                     <TouchableOpacity
                          style={styles.loginButton}
-                         onPress={() => {
-                              if (email === 'teste@email.com' && password === '123456') {
-                                   router.push('/(panel)/profile/home');
-                              } else {
-                                   alert('E-mail ou senha inválidos!');
-                              }
-                         }}
+                         onPress={handleLogin}
                     >
                          <Text style={styles.loginText}>entrar</Text>
                     </TouchableOpacity>
