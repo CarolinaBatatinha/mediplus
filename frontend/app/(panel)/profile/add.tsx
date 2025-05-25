@@ -40,14 +40,23 @@ export default function Add() {
 
                try {
                     const medicamento = await medicineService.buscar(String(id));
-
+                    console.log("Para editar", medicamento)
                     setNome(medicamento.nome);
                     setTipo(medicamento.tipo_medicamento);
                     setDosagem(medicamento.dosagem);
-                    setDataInicio(new Date(medicamento.data_inicial));
-                    setDataInicioTexto(new Date(medicamento.data_inicial).toLocaleDateString('pt-BR'));
-                    setAlarmeHoras([new Date(`1970-01-01T${medicamento.horario}`)]); // ajustar se tiver múltiplos
-                    setAlarmeHora(new Date(`1970-01-01T${medicamento.horario}`));
+
+                    if (medicamento.data_inicial) {
+                         const data = new Date(medicamento.data_inicial);
+                         setDataInicio(data);
+                         setDataInicioTexto(data.toLocaleDateString('pt-BR'));
+                    }
+
+                    if (medicamento.horario) {
+                         const hora = new Date(`1970-01-01T${medicamento.horario}`);
+                         setAlarmeHoras([hora]);
+                         setAlarmeHora(hora);
+                    }
+
                } catch (err) {
                     console.error('Erro ao carregar medicamento para edição:', err);
                     Alert.alert('Erro', 'Não foi possível carregar os dados do medicamento.');
@@ -56,6 +65,7 @@ export default function Add() {
 
           carregarMedicamentoParaEdicao();
      }, [id]);
+
 
      const [erros, setErros] = useState({
           nome: false,

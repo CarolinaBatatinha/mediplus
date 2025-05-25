@@ -5,12 +5,12 @@ import api from "./api";
 export const medicineService = {
   async listar(page = 1, limit = 10): Promise<Medicamento[]> {
     const response = await api.get(`/medicamentos?page=${page}&limit=${limit}`);
-    console.log("AAAAAAAA", response.data)
     return response.data;
   },
 
   async buscar(id: string): Promise<Medicamento> {
-    return await api.get(`/medicamentos/${id}`);
+    const response =  await api.get(`/medicamentos/${id}`);
+    return response.data;
   },
 
   async criar(medicamento: Medicamento): Promise<any> {

@@ -97,9 +97,9 @@ export default function Home() {
      };
 
      const medicamentosDoDia = medicamentos.filter((med) => {
-          if (!med.criado_em) return false;
+          if (!med.data_inicial) return false;
 
-          const medDate = new Date(med.criado_em);
+          const medDate = new Date(med.data_inicial);
           return (
                medDate.getDate() === selectedDate.getDate() &&
                medDate.getMonth() === selectedDate.getMonth() &&
