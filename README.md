@@ -35,7 +35,8 @@ https://paularcsarruda.github.io/MediPlus/
 
 ## MockUp - Figma
 
-<img width="626" alt="figma" src="https://github.com/user-attachments/assets/7c1cd32a-d29c-45cd-ba64-2adad355893d)" />
+<img width="626" alt="figma" src="https://github.com/user-attachments/assets/4135e209-9b13-454e-aa07-c6a1a9cad443" />
+
 
 <a href="https://www.figma.com/design/Bvitnl7LlqjqmnhWQa9Qse/PI---Android----Final?node-id=0-1&t=YqK3cq7xFaGVha1j-1" target="_blank">
   <img src="https://github.com/user-attachments/assets/2971552c-0ed0-4c70-ac1d-1068aec86bb7" alt="Figma" width="150" />
