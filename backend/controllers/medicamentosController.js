@@ -1,4 +1,4 @@
-const Medicamento = require('../../models/Medicamento');
+const Medicamento = require('../models/medicamento');
 
 const validarMedicamento = (data) => {
   if (!data.nome || !data.dosagem || !data.frequencia) {

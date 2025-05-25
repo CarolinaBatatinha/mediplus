@@ -3,7 +3,7 @@ import { Platform } from "react-native";
 const API_BASE_URL =
   Platform.OS === 'web'
     ? 'http://localhost:3000'
-    : 'http://192.111.1.6:3000';
+    : 'http://192.178.15.1:3000';
 
 
 const get = async (endpoint: string, headers: Record<string, string> = {}) => {
