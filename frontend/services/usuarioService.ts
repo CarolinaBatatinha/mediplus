@@ -7,7 +7,7 @@ export const usuarioService = {
     return await api.get('/usuarios');
   },
 
-  async buscar(id: string): Promise<Usuario> {
+  async buscar(id: number): Promise<Usuario> {
     return await api.get(`/usuarios/${id}`);
   },
 
@@ -21,5 +21,9 @@ export const usuarioService = {
 
   async remover(id: string): Promise<Usuario> {
     return await api.delete(`/usuarios/${id}`);
+  },
+
+  async atualizarParcial(id: string, usuario: Usuario): Promise<Usuario> {
+    return await api.patch(`/usuarios/${id}`, usuario);
   },
 };

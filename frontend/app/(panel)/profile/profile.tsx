@@ -5,8 +5,9 @@ import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Print from 'expo-print';
 import * as Sharing from 'expo-sharing';
-import { medicineService, Medicamento } from '../../../services/medicineService';
 import Footer from '../../../components/Footer';
+import { Medicamento } from '../../../modelos/Medicamento';
+import { medicineService } from '../../../services/medicineService';
 
 export default function Profile() {
      const router = useRouter();
@@ -131,12 +132,12 @@ export default function Profile() {
               ${medicamentosFiltrados.map(med => `
                 <tr>
                   <td>${med.nome}</td>
-                  <td>${new Date(med.data).toLocaleDateString('pt-BR')}</td>
+                  <td>${new Date(med.criado_em).toLocaleDateString('pt-BR')}</td>
                   <td>${med.horario}</td>
                   <td class="${med.status}">
                     ${med.status === 'tomado' ? 'Tomado ✓' : 'Esquecido ✕'}
                   </td>
-                  <td>${med.detalhe || '-'}</td>
+                  <td>${med.dosagem || '-'}</td>
                 </tr>
               `).join('')}
             </table>

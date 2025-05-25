@@ -3,6 +3,8 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Animated, Image, A
 import { Ionicons } from '@expo/vector-icons';
 import { Link, useRouter } from 'expo-router';
 import { loginService } from '../services/loginService';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { usuarioService } from '../services/usuarioService';
 
 export default function Login() {
      const [email, setEmail] = useState('');
@@ -37,7 +39,10 @@ export default function Login() {
                     senha_hash: password,
                });
 
-               console.log('Usuário logado:', resposta.user);
+               const usuarioLogado = await usuarioService.buscar(resposta.user.id);
+               await AsyncStorage.setItem('userName', JSON.stringify(usuarioLogado.nome));
+               await AsyncStorage.setItem('userEmail', JSON.stringify(usuarioLogado.email));
+               await AsyncStorage.setItem('idUsuario', JSON.stringify(resposta.user.id));
                router.push('/(panel)/profile/home')
                Alert.alert('Sucesso', resposta.message);
           } catch (error: any) {

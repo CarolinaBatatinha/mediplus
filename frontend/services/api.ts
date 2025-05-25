@@ -1,5 +1,10 @@
+import { Platform } from "react-native";
 
-const API_BASE_URL = 'http://localhost:3000';
+const API_BASE_URL =
+  Platform.OS === 'web'
+    ? 'http://localhost:3000'
+    : 'http://192.168.1.6:3000';
+
 
 const get = async (endpoint: string, headers: Record<string, string> = {}) => {
   const response = await fetch(`${API_BASE_URL}${endpoint}`, {
@@ -45,19 +50,38 @@ const put = async (endpoint: string, body: any) => {
   return data;
 };
 
+const patch = async (endpoint: string, body: any) => {
+  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.message || 'Erro na requisição PATCH');
+  return data;
+};
+
 const del = async (endpoint: string) => {
   const response = await fetch(`${API_BASE_URL}${endpoint}`, {
     method: 'DELETE',
   });
 
-  const data = await response.json();
-  if (!response.ok) throw new Error(data.message || 'Erro na requisição DELETE');
-  return data;
+  const text = await response.text();
+  if (!response.ok) {
+    throw new Error('Erro na requisição DELETE');
+  }
+
+  return text ? JSON.parse(text) : { success: true };
 };
+
 
 export default {
   get,
   post,
   put,
+  patch,
   delete: del,
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { useRouter } from 'expo-router';
 import {
@@ -14,12 +14,16 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { medicineService } from '../../../services/medicineService';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useLocalSearchParams } from 'expo-router';
+
+
 
 export default function Add() {
      const router = useRouter();
+     const { id } = useLocalSearchParams();
+     console.log("EDITAR", id)
      const [loading, setLoading] = useState(false);
-
-     // Estados do formulário
      const [nome, setNome] = useState('');
      const [tipo, setTipo] = useState('');
      const [dosagem, setDosagem] = useState('');
@@ -30,7 +34,29 @@ export default function Add() {
      const [isTimePickerVisible, setTimePickerVisible] = useState(false);
      const [isDatePickerVisible, setDatePickerVisible] = useState(false);
 
-     // Estados de erro
+     useEffect(() => {
+          const carregarMedicamentoParaEdicao = async () => {
+               if (!id) return;
+
+               try {
+                    const medicamento = await medicineService.buscar(String(id));
+
+                    setNome(medicamento.nome);
+                    setTipo(medicamento.tipo_medicamento);
+                    setDosagem(medicamento.dosagem);
+                    setDataInicio(new Date(medicamento.data_inicial));
+                    setDataInicioTexto(new Date(medicamento.data_inicial).toLocaleDateString('pt-BR'));
+                    setAlarmeHoras([new Date(`1970-01-01T${medicamento.horario}`)]); // ajustar se tiver múltiplos
+                    setAlarmeHora(new Date(`1970-01-01T${medicamento.horario}`));
+               } catch (err) {
+                    console.error('Erro ao carregar medicamento para edição:', err);
+                    Alert.alert('Erro', 'Não foi possível carregar os dados do medicamento.');
+               }
+          };
+
+          carregarMedicamentoParaEdicao();
+     }, [id]);
+
      const [erros, setErros] = useState({
           nome: false,
           tipo: false,
@@ -39,19 +65,16 @@ export default function Add() {
           alarmes: false
      });
 
-     // Mostrar/Esconder modais
      const showTimePicker = () => setTimePickerVisible(true);
      const hideTimePicker = () => setTimePickerVisible(false);
      const showDatePicker = () => setDatePickerVisible(true);
      const hideDatePicker = () => setDatePickerVisible(false);
 
-     // Confirmação de horário
      const handleTimeConfirm = (date: Date) => {
           setAlarmeHora(date);
           hideTimePicker();
      };
 
-     // Confirmação de data
      const handleDateConfirm = (date: Date) => {
           setDataInicio(date);
           setDataInicioTexto(date.toLocaleDateString('pt-BR'));
@@ -59,7 +82,6 @@ export default function Add() {
           hideDatePicker();
      };
 
-     // Adicionar alarme na lista
      const addAlarme = () => {
           if (alarmeHoras.length >= 8) {
                Alert.alert('Limite atingido', 'Você pode adicionar no máximo 8 alarmes.');
@@ -74,7 +96,6 @@ export default function Add() {
           }
      };
 
-     // Remover alarme da lista
      const removeAlarme = (alarme: Date) => {
           Alert.alert(
                'Remover alarme',
@@ -93,42 +114,36 @@ export default function Add() {
           );
      };
 
-     // Salvar medicamento via service
      async function salvarMedicamento() {
-          const novosErros = {
-               nome: !nome,
-               tipo: !tipo,
-               dosagem: !dosagem,
-               dataInicio: !dataInicio,
-               alarmes: alarmeHoras.length === 0
-          };
-
-          setErros(novosErros);
-
-          if (Object.values(novosErros).some(e => e)) {
-               Alert.alert('Campos obrigatórios', 'Preencha todos os campos marcados com *');
-               return;
-          }
-
-          setLoading(true);
-
-          try {
-               await medicineService.criar({
+          const usuarioId = await AsyncStorage.getItem('idUsuario');
+          if (id) {
+               await medicineService.atualizar(Number(id), {
                     nome,
+                    usuario_id: usuarioId,
                     tipo_medicamento: tipo,
                     dosagem,
                     data_inicial: dataInicio!.toISOString().split('T')[0],
-                    frequencia: `${alarmeHoras.length}x ao dia`
+                    frequencia: `${alarmeHoras.length}x ao dia`,
+                    horario: alarmeHora.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+               });
+
+               Alert.alert('Sucesso', 'Medicamento atualizado com sucesso!', [
+                    { text: 'OK', onPress: () => router.push('/(panel)/profile/home') }
+               ]);
+          } else {
+               await medicineService.criar({
+                    usuario_id: usuarioId,
+                    nome,
+                    tipo_medicamento: tipo,
+                    dosagem,
+                    data_inicial: dataInicio!.toISOString(),
+                    frequencia: `${alarmeHoras.length}x ao dia`,
+                    horario: alarmeHora.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
                });
 
                Alert.alert('Sucesso', 'Medicamento adicionado com sucesso!', [
                     { text: 'OK', onPress: () => router.push('/(panel)/profile/home') }
                ]);
-          } catch (error) {
-               Alert.alert('Erro', 'Ocorreu um erro ao salvar o medicamento');
-               console.error(error);
-          } finally {
-               setLoading(false);
           }
      }
 
@@ -230,7 +245,9 @@ export default function Add() {
                          </Text>
                          <TouchableOpacity
                               style={[styles.inputField, erros.dataInicio && styles.inputErro]}
-                              onPress={showDatePicker}
+                              onPress={() => {
+                                   showDatePicker();
+                              }}
                               accessibilityLabel="Botão para selecionar data de início"
                          >
                               <Ionicons name="calendar-outline" size={20} color="#9b59b6" />

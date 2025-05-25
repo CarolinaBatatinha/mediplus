@@ -31,6 +31,14 @@ class Usuario {
     await pool.query('DELETE FROM usuarios WHERE id = $1', [id]);
     return true;
   }
+
+  static async updatePartial(id, { nome, email }) {
+    const result = await pool.query(
+      'UPDATE usuarios SET nome = $1, email = $2 WHERE id = $3 RETURNING *',
+      [nome, email, id]
+    );
+    return result.rows[0];
+  }
 }
 
 module.exports = Usuario;

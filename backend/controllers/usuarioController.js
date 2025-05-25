@@ -55,3 +55,25 @@ exports.deletarUsuario = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+exports.atualizarParcial = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { nome, email } = req.body;
+
+    if (!nome || !email) {
+      return res.status(400).json({ success: false, message: 'Nome e email são obrigatórios' });
+    }
+
+    const usuarioAtualizado = await Usuario.updatePartial(id, { nome, email });
+
+    if (!usuarioAtualizado) {
+      return res.status(404).json({ success: false, message: 'Usuário não encontrado' });
+    }
+
+    res.json({ success: true, data: usuarioAtualizado, message: 'Usuário atualizado com sucesso' });
+  } catch (error) {
+    console.error('Erro ao atualizar parcialmente o usuário:', error);
+    res.status(500).json({ success: false, message: 'Erro interno no servidor' });
+  }
+};

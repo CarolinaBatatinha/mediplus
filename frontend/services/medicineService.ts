@@ -13,21 +13,26 @@ export const medicineService = {
     return await api.get(`/medicamentos/${id}`);
   },
 
-  async criar(medicamento: {
-    nome: string;
-    tipo_medicamento: string;
-    dosagem: string;
-    data_inicial: string;
-    frequencia: string;
-  }): Promise<any> {
+  async criar(medicamento: Medicamento): Promise<any> {
     return await api.post('/medicamentos', medicamento);
   },
 
-  async atualizar(id: string, medicamento: Medicamento): Promise<Medicamento> {
+  async atualizar(id: number, medicamento: Medicamento): Promise<Medicamento> {
     return await api.put(`/medicamentos/${id}`, medicamento);
   },
 
-  async remover(id: string): Promise<Medicamento> {
+  async remover(id: number): Promise<Medicamento> {
     return await api.delete(`/medicamentos/${id}`);
   },
+
+  async buscarPorUsuario(usuarioId: string): Promise<Medicamento[]> {
+    const response = await api.get(`/medicamentos/usuario/${usuarioId}`);
+    return response.data;
+  },
+
+  async atualizarStatus(id: number, status: string): Promise<Medicamento> {
+    const response = await api.patch(`/medicamentos/${id}/status`, { status });
+    return response.data.data;
+  }
+
 };

@@ -31,6 +31,24 @@ class Medicamento {
     await pool.query('DELETE FROM medicamentos WHERE id = $1', [id]);
     return true;
   }
+
+  static async findByUsuarioId(usuarioId) {
+    const result = await pool.query(
+      'SELECT * FROM medicamentos WHERE usuario_id = $1',
+      [usuarioId]
+    );
+    return result.rows;
+  }
+
+  static async updateStatus(id, status) {
+    const result = await pool.query(
+      'UPDATE medicamentos SET status = $1 WHERE id = $2 RETURNING *',
+      [status, id]
+    );
+    return result.rows[0];
+  }
+
+
 }
 
 module.exports = Medicamento;
