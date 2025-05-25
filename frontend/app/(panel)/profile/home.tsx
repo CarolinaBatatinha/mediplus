@@ -3,9 +3,10 @@ import { useFocusEffect } from '@react-navigation/native';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from 'expo-router';
-import { medicineService, Medicamento } from '../../../services/medicineService';
 import Footer from '../../../components/Footer';
 import { Ionicons } from '@expo/vector-icons';
+import { Medicamento } from '../../../modelos/Medicamento';
+import { medicineService } from '../../../services/medicineService';
 
 export default function Home() {
      const router = useRouter();
@@ -52,8 +53,14 @@ export default function Home() {
      );
 
      const fetchMedicamentos = async () => {
-          const dadosMedicamentos = await medicineService.listar();
-          setMedicamentos(dadosMedicamentos);
+         try {
+               const usuarioId = await AsyncStorage.getItem('idUsuario');
+               const dadosMedicamentos = await medicineService.buscarPorUsuario(usuarioId);
+               setMedicamentos(dadosMedicamentos);
+          } catch (error: any) {
+               console.warn('Nenhum medicamento encontrado ou erro:', error.message);
+               setMedicamentos([]);
+          }
      };
 
      const updateHeader = (date: Date) => {
@@ -80,7 +87,7 @@ export default function Home() {
           const medicamentoAtualizado = { ...medicamento, status };
 
           try {
-               await medicineService.atualizar(medicamentoAtualizado);
+               await medicineService.atualizarStatus(medicamentoAtualizado.id, status);
                setMedicamentos(prev => prev.map(m =>
                     m.id === medicamento.id ? medicamentoAtualizado : m
                ));
@@ -90,9 +97,9 @@ export default function Home() {
      };
 
      const medicamentosDoDia = medicamentos.filter((med) => {
-          if (!med.data) return false;
+          if (!med.data_inicial) return false;
 
-          const medDate = new Date(med.data);
+          const medDate = new Date(med.data_inicial);
           return (
                medDate.getDate() === selectedDate.getDate() &&
                medDate.getMonth() === selectedDate.getMonth() &&

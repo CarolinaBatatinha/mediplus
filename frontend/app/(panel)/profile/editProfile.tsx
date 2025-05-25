@@ -1,24 +1,28 @@
 import React, { useState, useEffect } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
+import { usuarioService } from '../../../services/usuarioService';
 
 export default function EditProfileScreen() {
      const router = useRouter();
      const [name, setName] = useState('');
      const [email, setEmail] = useState('');
 
-     // Carrega dados salvos ao abrir a tela
-     useEffect(() => {
-          const loadUserData = async () => {
-               const savedName = await AsyncStorage.getItem('userName');
-               const savedEmail = await AsyncStorage.getItem('userEmail');
-               if (savedName) setName(savedName);
-               if (savedEmail) setEmail(savedEmail);
-          };
-          loadUserData();
-     }, []);
+     useFocusEffect(
+          React.useCallback(() => {
+               loadUserData(); 
+          }, [])
+     );
+
+     const loadUserData = async () => {
+          const savedName = await AsyncStorage.getItem('userName');
+          const savedEmail = await AsyncStorage.getItem('userEmail');
+          if (savedName) setName(savedName);
+          if (savedEmail) setEmail(savedEmail);
+     };
 
      const saveProfile = async () => {
           if (!name.trim()) {
@@ -31,15 +35,23 @@ export default function EditProfileScreen() {
           }
 
           try {
+               const usuarioId = await AsyncStorage.getItem('idUsuario');
+               if (!usuarioId) throw new Error('Usuário não identificado.');
+
+               await usuarioService.atualizarParcial(usuarioId, { nome: name.trim(), email: email.trim() });
+
                await AsyncStorage.multiSet([
                     ['userName', name.trim()],
                     ['userEmail', email.trim()],
                ]);
-               Alert.alert('Sucesso', 'Perfil atualizado!', [
-                    { text: 'OK', onPress: () => router.back() },
+
+               Alert.alert('Sucesso', 'Perfil atualizado!', [{
+                         text: 'OK', onPress: () => router.push("/(panel)/profile/profile")
+                    },
                ]);
           } catch (error) {
-               Alert.alert('Erro', 'Não foi possível salvar. Tente novamente.');
+               console.error(error);
+               Alert.alert('Erro', 'Não foi possível atualizar. Tente novamente.');
           }
      };
 

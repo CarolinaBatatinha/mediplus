@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Modal, FlatList } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import { medicineService, Medicamento } from '../../../services/medicineService';
 import Footer from '../../../components/Footer';
+import { Medicamento } from '../../../modelos/Medicamento';
+import { medicineService } from '../../../services/medicineService';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export default function History() {
      const [medicamentos, setMedicamentos] = useState<Medicamento[]>([]);
@@ -16,15 +19,22 @@ export default function History() {
      }, []);
 
      async function carregarMedicamentos() {
-          const lista = await medicineService.listar();
-          setMedicamentos(lista);
+          try {
+               const usuarioId = await AsyncStorage.getItem('idUsuario');
+               const dadosMedicamentos = await medicineService.buscarPorUsuario(usuarioId);
+               setMedicamentos(dadosMedicamentos);
+          } catch (error: any) {
+               console.warn('Nenhum medicamento encontrado ou erro:', error.message);
+               setMedicamentos([]);
+          }
      }
 
      async function excluirMedicamento() {
           if (medicamentoSelecionado) {
                await medicineService.remover(medicamentoSelecionado.id);
-               await carregarMedicamentos();
                setModalVisible(false);
+               return carregarMedicamentos();
+
           }
      }
 
@@ -40,17 +50,17 @@ export default function History() {
                ) : (
                     <FlatList
                          data={medicamentos}
-                         keyExtractor={(item) => item.id}
+                         keyExtractor={(item) => item.id?.toString() ?? ''}
                          renderItem={({ item }) => (
                               <View style={styles.card}>
                                    <View style={styles.cardContent}>
                                         <View style={styles.cardInfo}>
                                              <Text style={styles.nome}>{item.nome}</Text>
-                                             <Text style={styles.detalhe}>{item.detalhe}</Text>
+                                             <Text style={styles.detalhe}>{item.frequencia}</Text>
                                              <View style={styles.horario}>
                                                   <Ionicons name="time-outline" size={16} color="#9b59b6" />
                                                   <Text style={styles.horaTexto}>
-                                                       {Array.isArray(item.alarmes) ? item.alarmes.join(', ') : item.alarmes}
+                                                       {Array.isArray(item.horario) ? item.horario.join(', ') : item.horario}
                                                   </Text>
                                              </View>
                                         </View>
@@ -58,7 +68,7 @@ export default function History() {
                                         <View style={styles.cardActions}>
                                              <TouchableOpacity
                                                   style={styles.actionButton}
-                                                  onPress={() => router.push(`./EditMed?id=${item.id}`)}
+                                                  onPress={() => router.push(`/(panel)/profile/add?id=${item.id}`)}
                                              >
                                                   <Ionicons name="create-outline" size={20} color="#9b59b6" />
                                              </TouchableOpacity>
